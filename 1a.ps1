@@ -1,14 +1,13 @@
 ﻿$sample = $false
 $day = "1"
-set-location "$PSScriptRoot"
 
 if ($sample) {
-    $inputFile = "$day"+"sample.txt"
+    $data = get-content ("$($PSScriptRoot)/$day"+"sample-a.txt")
 } else {
-    $inputFile = "$day"+".txt"
+    $data = get-content ("$($PSScriptRoot)/$day"+".txt")
 }
 $sum = 0
-foreach ($line in $(get-content $inputFile)) {
+foreach ($line in $data) {
     $digits = $line.ToCharArray() | ? {$_ -match '[0-9]'}
     if ($digits.length -eq 1) {
         [int]$value = "$digits"

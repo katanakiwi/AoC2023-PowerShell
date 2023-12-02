@@ -1,13 +1,11 @@
 ﻿$sample = $false
 $day = "1"
-set-location "$PSScriptRoot"
-
 
 
 if ($sample) {
-    $inputFile = "$day"+"sample.txt"
+    $data = get-content ("$($PSScriptRoot)/$day"+"sample-a.txt")
 } else {
-    $inputFile = "$day"+".txt"
+    $data = get-content ("$($PSScriptRoot)/$day"+".txt")
 }
 
 function textToNumbers {
@@ -52,20 +50,17 @@ function textToNumbers {
     }
     return $in
 }
-$count = 0
 $sum = 0
-foreach ($line in $(get-content $inputFile)) {
+foreach ($line in $data) {
 
     $editedLine = textToNumbers -in $line
     $digits = $editedLine.ToCharArray() | ? {$_ -match '[0-9]'}
     if ($digits.length -eq 1) {
         [int]$value = "$digits"
-        write-host "single! $value$value"
         $sum += $value*11
     } else {
         [int]$v1 = "$($digits[0])"
         [int]$v2 = "$($digits[$($digits.length-1)])"
-        write-host "$v1$v2"
         $sum += 10*$v1 + $v2
     }
 }
