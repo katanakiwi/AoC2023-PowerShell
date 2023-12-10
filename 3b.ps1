@@ -110,26 +110,4 @@ for ($i = 0; $i -lt $potentialGearLocations.Length; $i++) {
     }
 }
 
-<#
-for ($i = 0; $i -lt $data.Length; $i++) {
-    $line = $($data[$i])
-    $numbers, $positions = scanNumbers $line
-
-    $previousLineSymbolIndices = @()
-    $currentLineSymbolIndices = getSymbolIndices -line $line
-
-
-    for ($v = 0; $v -lt $numbers.Length; $v++) {
-        $isPartNumber = $false
-        #get range of valid positions for symbols, accounting for edges (min/max)
-        $validRange = (([Math]::max($($positions[$v])-1,0))..([Math]::min($($positions[$v])+$($numbers[$v].toString().length),$line.Length-1)))
-        for ($a = 0; $a -lt $indicesInAdjacentLines.Length; $a++) {
-            if ($validRange -contains $($indicesInAdjacentLines[$a])) {
-                $isPartNumber = $true
-                $sumTotal += $numbers[$v]
-            }
-        }
-    }
-}
-#>
 write-host "Total sum of valid part numbers: $sumTotal"
